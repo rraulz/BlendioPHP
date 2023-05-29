@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Services\CalculatorService;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+
+Route::get('/{operacion}/{numero1}/{numero2}', function ($operacion, $numero1, $numero2, CalculatorService $calculatorService) {
+
+    try 
+    {
+        $resultado = $calculatorService->calculadora($operacion, $numero1, $numero2);
+        return response()->json(['resultado' => $resultado]);
+    } 
+    catch (Exception $e) 
+    {
+        return response()->json(['error' => $e->getMessage()], 400);
+    }
 });
