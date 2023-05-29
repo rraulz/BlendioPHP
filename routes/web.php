@@ -26,7 +26,7 @@ Route::get('/{operacion}/{numero1}/{numero2}', function ($operacion, $numero1, $
         $resultado = $calculatorService->calculadora($operacion, $numero1, $numero2);
         return response()->json(['resultado' => $resultado]);
     } 
-    catch (Exception $e) 
+    catch (\Exception $e) 
     {
         return response()->json(['error' => $e->getMessage()], 400);
     }
